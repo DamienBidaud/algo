@@ -1,37 +1,46 @@
 <?php
 
+class sort{
 
-function partitionner($array,$first, $end, $pivot){
-    $aux = $array[$pivot];
-    $array[$pivot] = $array[$end];
-    $array[$end] = $aux;
-    $j = $first;
-    for ($i = $first; $i < $end; $i++){
-        if($array[$i] <= $array[$end]){
-            $aux = $array[$i];
-            $array[$i] = $array[$j];
-            $array[$j] = $aux;
-            $j++;
-        }
-    }
-    $aux = $array[$j];
-    $array[$j] = $array[$end];
-    $array[$end] = $aux;
-    return $j;
+  private $array;
 
-}
+  __constructor($array){
+    $this->array = $array;
+  }
 
-function choice_pivot($first, $last){
-    return rand($first, $last);
-}
+  function partitionner($first, $end, $pivot){
+      $aux = $this->array[$pivot];
+      $this->array[$pivot] = $this->array[$end];
+      $this->array[$end] = $aux;
+      $j = $first;
+      for ($i = $first; $i < $end; $i++){
+          if($array[$i] <= $this->array[$end]){
+              $aux = $this->array[$i];
+              $this->array[$i] = $this->array[$j];
+              $this->array[$j] = $aux;
+              $j++;
+          }
+      }
+      $aux = $this->array[$j];
+      $this->array[$j] = $this->array[$end];
+      $this->array[$end] = $aux;
+      return $j;
 
-function sortSelect($array, $first, $last){
-    if($first < $last){
-        $pivot = $this->choice_pivot($first, $last);
-        $pivot = $this->partitionner( $first, $last, $pivot);
-        $this->sortSelect($array,$first, $pivot-1);
-        $this->sortSelect($array, $pivot+1, $last);
-    }
+  }
+
+  function choice_pivot($first, $last){
+      return rand($first, $last);
+  }
+
+  function sortSelect($first, $last){
+      if($first < $last){
+          $pivot = $this->choice_pivot($first, $last);
+          $pivot = $this->partitionner( $first, $last, $pivot);
+          $this->sortSelect($first, $pivot-1);
+          $this->sortSelect( $pivot+1, $last);
+      }
+  }
+
 }
 
 
